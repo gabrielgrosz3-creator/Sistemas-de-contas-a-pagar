@@ -19,11 +19,10 @@ public class Principal {
                     menudeCadastro();
                     break;
                 case 2:
-                    menedeBaixa;
+                    menedeBaixa();
                     break;
                 case 3:
-                    menudeRelatorios;
-                    break;
+                    menudeRelatorios();
                 case 0:
                     JOptionPane.showMessageDialog(null, "Sistema encerrado");
                     break;
