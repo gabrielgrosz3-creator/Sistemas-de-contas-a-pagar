@@ -28,6 +28,7 @@ public class Principal {
                     break;
                 case 3:
                     relatorios();
+                    break;
                 case 0:
                     JOptionPane.showMessageDialog(null, "Sistema encerrado");
                     break;
@@ -44,7 +45,7 @@ public class Principal {
                     + "1 - Inclusão de contas\n"
                     + "2 - Alteração de contas\n"
                     + "3 - Consulta de contas\n"
-                    + "4 - Exclusaõ de contas"
+                    + "4 - Exclusaõ de contas\n"
                     + "0 - Sair\n"
                     + "Escolha uma opção :"));
             switch (opcao) {
@@ -65,9 +66,11 @@ public class Principal {
                     break;
 
                 default:
-                    JOptionPane.showMessageDialog(null, "Retornar ao menu anterior !");
+                    JOptionPane.showMessageDialog(null, "Opção inválida !");
             }
         } while (opcao != 0);
+      
+      }
       public static void baixaContas(){
           
       }
@@ -80,14 +83,13 @@ public class Principal {
      public static void consultarConta(){
      
      }
-     public static void excluitConta(){
+     public static void excluirConta(){
      
      }
      
-     public static void relarios(){
+     public static void relatorios(){
      
      }
      
 }
 
-}
