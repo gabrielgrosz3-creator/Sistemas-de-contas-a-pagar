@@ -4,15 +4,15 @@ import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Principal {
-
-    public static void main(String[] args) {
-         int [] documento = new int[100];
-         String [] descricao = new String[100];
-         String[] beneficiario = new String[100];
-         double [] valordebito = new double[100];
-         double [] saldodevedor = new double[100];
-         LocalDate [] vencimento = new LocalDate[100];
-         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
+     static int [] documento = new int[100];
+     static String [] descricao = new String[100];
+     static String[] beneficiario = new String[100];
+     static double [] valordebito = new double[100];
+     static double [] saldodevedor = new double[100];
+     static LocalDate [] vencimento = new LocalDate[100];
+     static DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+         
+    public static void main(String[] args) { 
          int opcao;
         do {
             opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
@@ -40,7 +40,7 @@ public class Principal {
             }
         } while (opcao != 0);
     }
-      public static void menudeCadastro(){
+      static void menudeCadastro(){
        int opcao;
        do {
             opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
@@ -73,23 +73,23 @@ public class Principal {
         } while (opcao != 0);
       
       }
-      public static void baixaContas(){
+       static void baixaContas(){
           
       }
-     public static void incluirConta(){
+      static void incluirConta(){
      
      }
-     public static void alterarConta(){
+      static void alterarConta(){
      
      }
-     public static void consultarConta(){
+      static void consultarConta(){
      
      }
-     public static void excluirConta(){
+      static void excluirConta(){
      
      }
      
-     public static void menuRelatorios(){
+      static void menuRelatorios(){
         int opcao;
          do {
             opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
@@ -117,18 +117,17 @@ public class Principal {
         } while (opcao != 0);
      }
      
-     public static void relatorioContas(){
+     static void relatorioContas(){
    
    }
-    public static void relatorioAtrasados(){
+     static void relatorioAtrasados(){
     
     }
-    public static void balancoDespesas(){
+    static void balancoDespesas(){
     
-    }
-   
+    }            
 }
-
+     
 
 
  
