@@ -24,10 +24,10 @@ public class Principal {
                     menudeCadastro();
                     break;
                 case 2:
-                    menedeBaixa();
+                    baixaContas();
                     break;
                 case 3:
-                    menudeRelatorios();
+                    relatorios();
                 case 0:
                     JOptionPane.showMessageDialog(null, "Sistema encerrado");
                     break;
@@ -68,6 +68,26 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "Retornar ao menu anterior !");
             }
         } while (opcao != 0);
-      
+      public static void baixaContas(){
+          
+      }
+     public static void incluirConta(){
+     
+     }
+     public static void alterarConta(){
+     
+     }
+     public static void consultarConta(){
+     
+     }
+     public static void excluitConta(){
+     
+     }
+     
+     public static void relarios(){
+     
+     }
+     
+}
 
 }
