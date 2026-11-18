@@ -1,7 +1,8 @@
 package Principal;
 
 import javax.swing.JOptionPane;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Principal {
 
     public static void main(String[] args) {
@@ -11,7 +12,8 @@ public class Principal {
          double [] valordebito = new double[100];
          double [] saldodevedor = new double[100];
          String [] vencimento = new String[100];
-        int opcao;
+         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
+         int opcao;
         do {
             opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
                     + "1 - Cadastro de contas\n"
@@ -27,7 +29,7 @@ public class Principal {
                     baixaContas();
                     break;
                 case 3:
-                    relatorios();
+                    menuRelatorios();
                     break;
                 case 0:
                     JOptionPane.showMessageDialog(null, "Sistema encerrado");
@@ -87,9 +89,46 @@ public class Principal {
      
      }
      
-     public static void relatorios(){
-     
+     public static void menuRelatorios(){
+        int opcao;
+         do {
+            opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
+                    + "1 - Relatório de contas a pagar\n"
+                    + "2 - Relaório de contas atrasadas\n"
+                    + "3 - Balanço de despesas\n"
+                    + "0 - Retornar\n"
+                    + "Escolha uma opção :"));
+            switch (opcao) {
+                case 1:
+                    relatorioContas();
+                    break;
+                case 2:
+                    relatorioAtrasados();
+                    break;
+                case 3:
+                    balancoDespesas();
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(null, "RErornar ao menu de cadastro");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida !");
+            }
+        } while (opcao != 0);
      }
      
+     public static void relatorioContas(){
+   
+   }
+    public static void relatorioAtrasados(){
+    
+    }
+    public static void balancoDespesas(){
+    
+    }
+   
 }
 
+
+
+ 
