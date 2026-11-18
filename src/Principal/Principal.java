@@ -11,7 +11,7 @@ public class Principal {
          String[] beneficiario = new String[100];
          double [] valordebito = new double[100];
          double [] saldodevedor = new double[100];
-         String [] vencimento = new String[100];
+         LocalDate [] vencimento = new LocalDate[100];
          DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
          int opcao;
         do {
