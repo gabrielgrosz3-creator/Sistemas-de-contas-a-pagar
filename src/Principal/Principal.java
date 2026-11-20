@@ -14,11 +14,6 @@ public class Principal {
      static LocalDate [] vencimento = new LocalDate[100];
      static DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
      static int qtdContas = 0;    
-    public static void main(String[] args) { 
-         int opcao;
-
-
-    
     public static void main(String[] args) {
         int opcao;
 
@@ -120,7 +115,15 @@ public class Principal {
     }
 
     static void incluirConta() {
-
+     if(qtdContas > 100){
+        JOptionPane.showMessageDialog(null,"LImite de contas atingido"); 
+        return;
+     }
+       beneficiario[qtdContas] = JOptionPane.showInputDialog("Digite o nome do correntista");
+       descricao[qtdContas] = JOptionPane.showInputDialog("Digote a descição do correntista");
+        DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        valordebito[qtdContas] = saldodevedor[qtdContas];
+        qtdContas++; 
     }
 
     static void alterarConta() {
