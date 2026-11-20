@@ -11,7 +11,7 @@ public class Principal {
      static double [] saldodevedor = new double[100];
      static LocalDate [] vencimento = new LocalDate[100];
      static DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-         
+     static int qtdContas = 0;    
     public static void main(String[] args) { 
          int opcao;
         do {
@@ -48,7 +48,7 @@ public class Principal {
                     + "2 - Alteração de contas\n"
                     + "3 - Consulta de contas\n"
                     + "4 - Exclusaõ de contas\n"
-                    + "0 - Sair\n"
+                    + "0 - Voltar ao menu anterior\n"
                     + "Escolha uma opção :"));
             switch (opcao) {
                 case 1:
@@ -64,7 +64,7 @@ public class Principal {
                     excluirConta();
                     break;
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Sistema encerrado");
+                    JOptionPane.showMessageDialog(null, "Voltar ao menu anterior  !");
                     break;
 
                 default:
@@ -109,7 +109,7 @@ public class Principal {
                     balancoDespesas();
                     break;
                 case 0:
-                    JOptionPane.showMessageDialog(null, "RErornar ao menu de cadastro");
+                    JOptionPane.showMessageDialog(null, "Rerornar ao menu de cadastro");
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opção inválida !");
