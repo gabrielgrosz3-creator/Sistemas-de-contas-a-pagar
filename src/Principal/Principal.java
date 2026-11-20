@@ -115,13 +115,15 @@ public class Principal {
     }
 
     static void incluirConta() {
-     if(qtdContas > 100){
+     if(qtdContas >= 100){
         JOptionPane.showMessageDialog(null,"LImite de contas atingido"); 
         return;
      }
        beneficiario[qtdContas] = JOptionPane.showInputDialog("Digite o nome do correntista");
        descricao[qtdContas] = JOptionPane.showInputDialog("Digote a descição do correntista");
         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        documento[qtdContas] = Integer.parseInt(JOptionPane.showInputDialog("Informe o documento"));
+        valordebito[qtdContas] = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da conta:"));
         valordebito[qtdContas] = saldodevedor[qtdContas];
         qtdContas++; 
     }
