@@ -124,7 +124,10 @@ public class Principal {
         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         documento[qtdContas] = Integer.parseInt(JOptionPane.showInputDialog("Informe o documento"));
         valordebito[qtdContas] = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da conta:"));
-        valordebito[qtdContas] = saldodevedor[qtdContas];
+        saldodevedor[qtdContas] = valordebito[qtdContas];
+        String dataStr = JOptionPane.showInputDialog(
+    "Digite a data de vencimento (dd/MM/yyyy)");
+        vencimento[qtdContas] = LocalDate.parse(dataStr, data);
         qtdContas++; 
     }
 
@@ -133,7 +136,38 @@ public class Principal {
     }
 
     static void consultarConta() {
+      int doc = Integer.parseInt(JOptionPane.showInputDialog("Digite o documento"));
+      boolean confere = false;
+      
+       
+    for (int i = 0; i < 100; i++) {
 
+        if (documento[i] == doc) {
+
+            confere = true;
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Beneficiário: " + beneficiario[i] +
+                "\nDescrição: " + descricao[i] +
+                "\nDocumento: " + documento[i] +
+                "\nValor da conta: R$ " + valordebito[i] +
+                "\nSaldo devedor: R$ " + saldodevedor[i] +
+                "\nVencimento: " + vencimento[i].format(data)
+            );
+
+            break;
+            }
+    }
+           if (!confere) {
+           JOptionPane.showMessageDialog(
+            null,
+            "Conta não encontrada!"
+           );
+       }
+      }      
+        
+      
     }
 
     static void excluirConta() {
@@ -181,4 +215,5 @@ public class Principal {
     static void balancoDespesas() {
 
     }
-}
+
+
