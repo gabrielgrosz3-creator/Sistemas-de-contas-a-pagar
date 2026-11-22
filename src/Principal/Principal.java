@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Principal {
 
-    static int[] documento = new int[100];
+    static long[] documento = new long[100];
+    //FIZ A TROCA DO DADO DO documento PARA long. ESTAVA DANDO ERRO NO SOFTWARE(GABRIEL)
     static String[] descricao = new String[100];
     static String[] beneficiario = new String[100];
     static double[] valordebito = new double[100];
@@ -52,10 +53,8 @@ public class Principal {
                     + "1 - Inclusão de contas\n"
                     + "2 - Alteração de contas\n"
                     + "3 - Consulta de contas\n"
-                    + "4 - Exclusaõ de contas\n"
-                    + "0 - Voltar ao menu anterior\n"
                     + "4 - Exclusão de contas\n"
-                    + "0 - Sair\n"
+                    + "0 - Voltar ao menu anterior\n"
                     + "Escolha uma opção :"));
             switch (opcao) {
                 case 1:
@@ -82,10 +81,10 @@ public class Principal {
     }
 
     static void baixaContas() {
-        int numeroDocumento;
+        long numeroDocumento;
         int posicao = -1;
-        numeroDocumento = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do documento"));
-        for (int i = 0; i < 100; i++) {
+        numeroDocumento = Long.parseLong(JOptionPane.showInputDialog("Digite o número do documento"));
+        for (int i = 0; i < qtdContas; i++) {
             if (numeroDocumento == documento[i]) {
                 posicao = i;
             }
@@ -114,13 +113,13 @@ public class Principal {
 
     static void incluirConta() {
         if (qtdContas >= 100) {
-            JOptionPane.showMessageDialog(null, "LImite de contas atingido");
+            JOptionPane.showMessageDialog(null, "Limite de contas atingido");
             return;
         }
         beneficiario[qtdContas] = JOptionPane.showInputDialog("Digite o nome do correntista");
-        descricao[qtdContas] = JOptionPane.showInputDialog("Digote a descição do correntista");
+        descricao[qtdContas] = JOptionPane.showInputDialog("Digite a descição do correntista");
         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        documento[qtdContas] = Integer.parseInt(JOptionPane.showInputDialog("Informe o documento"));
+        documento[qtdContas] = Long.parseLong(JOptionPane.showInputDialog("Informe o documento"));
         valordebito[qtdContas] = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da conta:"));
         saldodevedor[qtdContas] = valordebito[qtdContas];
         String dataStr = JOptionPane.showInputDialog(
@@ -134,10 +133,10 @@ public class Principal {
     }
 
     static void consultarConta() {
-        int doc = Integer.parseInt(JOptionPane.showInputDialog("Digite o documento"));
+        long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
         boolean confere = false;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < qtdContas; i++) {
 
             if (documento[i] == doc) {
 
@@ -213,7 +212,7 @@ public class Principal {
         double[] Despesatotal = new double[12];
         double[] Despesatotalbeneficiario = new double[12];
         String[] Beneficiariodespesamaior = new String[12];
-        String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS,TOTAL DAS DESPESAS,MAIOR BENEFICIÁRIO\n";
+        String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS, TOTAL DAS DESPESAS, BENEFICIÁRIO\n";
         ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
         String[] meses = {
             "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
@@ -234,15 +233,15 @@ public class Principal {
                 }
             }
         }
-        for (int k =0; k<12;k++){
-           if (Beneficiariodespesamaior[k]== null){
-               relatorio += meses[k]+"R$"+ Despesatotal[k]+ "-\n";
-           }else{
-               relatorio += meses[k]+ "R$"+ Despesatotal[k]+""+Beneficiariodespesamaior[k]+"\n";
-           }
-            
+        for (int k = 0; k < 12; k++) {
+            if (Beneficiariodespesamaior[k] == null) {
+                relatorio += meses[k] + " R$" + Despesatotal[k] + "-\n";
+            } else {
+                relatorio += meses[k] + " R$" + Despesatotal[k] + "" + Beneficiariodespesamaior[k] + "\n";
+            }
+
         }
-        JOptionPane.showMessageDialog(null,relatorio);
+        JOptionPane.showMessageDialog(null, relatorio);
     }
 
 }
