@@ -6,14 +6,15 @@ import java.time.format.DateTimeFormatter;
 
 public class Principal {
 
-     static int [] documento = new int[100];
-     static String [] descricao = new String[100];
-     static String[] beneficiario = new String[100];
-     static double [] valordebito = new double[100];
-     static double [] saldodevedor = new double[100];
-     static LocalDate [] vencimento = new LocalDate[100];
-     static DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-     static int qtdContas = 0;    
+    static int[] documento = new int[100];
+    static String[] descricao = new String[100];
+    static String[] beneficiario = new String[100];
+    static double[] valordebito = new double[100];
+    static double[] saldodevedor = new double[100];
+    static LocalDate[] vencimento = new LocalDate[100];
+    static DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    static int qtdContas = 0;
+
     public static void main(String[] args) {
         int opcao;
 
@@ -51,13 +52,10 @@ public class Principal {
                     + "1 - Inclusão de contas\n"
                     + "2 - Alteração de contas\n"
                     + "3 - Consulta de contas\n"
-
                     + "4 - Exclusaõ de contas\n"
                     + "0 - Voltar ao menu anterior\n"
-
                     + "4 - Exclusão de contas\n"
                     + "0 - Sair\n"
-
                     + "Escolha uma opção :"));
             switch (opcao) {
                 case 1:
@@ -104,31 +102,31 @@ public class Principal {
                 }
             } while (valorpago <= 0 || valorpago > saldodevedor[posicao]);
             int confirmar;
-            confirmar = JOptionPane.showConfirmDialog(null,"\nConfirmar a baixa de R$"+ valorpago +"?","\n Confirmar pagamento",JOptionPane.YES_NO_OPTION);
-            if (confirmar == JOptionPane.YES_OPTION){
-                saldodevedor[posicao]= saldodevedor[posicao]-valorpago;
-                JOptionPane.showMessageDialog(null,"A Baixa foi realizada!\nSaldo devedor atualizado: R$"+saldodevedor[posicao]);
-            }else{
-                JOptionPane.showMessageDialog(null,"A baixa foi cancelada!");
+            confirmar = JOptionPane.showConfirmDialog(null, "\nConfirmar a baixa de R$" + valorpago + "?", "\n Confirmar pagamento", JOptionPane.YES_NO_OPTION);
+            if (confirmar == JOptionPane.YES_OPTION) {
+                saldodevedor[posicao] = saldodevedor[posicao] - valorpago;
+                JOptionPane.showMessageDialog(null, "A Baixa foi realizada!\nSaldo devedor atualizado: R$" + saldodevedor[posicao]);
+            } else {
+                JOptionPane.showMessageDialog(null, "A baixa foi cancelada!");
             }
         }
     }
 
     static void incluirConta() {
-     if(qtdContas >= 100){
-        JOptionPane.showMessageDialog(null,"LImite de contas atingido"); 
-        return;
-     }
-       beneficiario[qtdContas] = JOptionPane.showInputDialog("Digite o nome do correntista");
-       descricao[qtdContas] = JOptionPane.showInputDialog("Digote a descição do correntista");
+        if (qtdContas >= 100) {
+            JOptionPane.showMessageDialog(null, "LImite de contas atingido");
+            return;
+        }
+        beneficiario[qtdContas] = JOptionPane.showInputDialog("Digite o nome do correntista");
+        descricao[qtdContas] = JOptionPane.showInputDialog("Digote a descição do correntista");
         DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         documento[qtdContas] = Integer.parseInt(JOptionPane.showInputDialog("Informe o documento"));
         valordebito[qtdContas] = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da conta:"));
         saldodevedor[qtdContas] = valordebito[qtdContas];
         String dataStr = JOptionPane.showInputDialog(
-    "Digite a data de vencimento (dd/MM/yyyy)");
+                "Digite a data de vencimento (dd/MM/yyyy)");
         vencimento[qtdContas] = LocalDate.parse(dataStr, data);
-        qtdContas++; 
+        qtdContas++;
     }
 
     static void alterarConta() {
@@ -136,38 +134,34 @@ public class Principal {
     }
 
     static void consultarConta() {
-      int doc = Integer.parseInt(JOptionPane.showInputDialog("Digite o documento"));
-      boolean confere = false;
-      
-       
-    for (int i = 0; i < 100; i++) {
+        int doc = Integer.parseInt(JOptionPane.showInputDialog("Digite o documento"));
+        boolean confere = false;
 
-        if (documento[i] == doc) {
+        for (int i = 0; i < 100; i++) {
 
-            confere = true;
+            if (documento[i] == doc) {
 
-            JOptionPane.showMessageDialog(
-                null,
-                "Beneficiário: " + beneficiario[i] +
-                "\nDescrição: " + descricao[i] +
-                "\nDocumento: " + documento[i] +
-                "\nValor da conta: R$ " + valordebito[i] +
-                "\nSaldo devedor: R$ " + saldodevedor[i] +
-                "\nVencimento: " + vencimento[i].format(data)
-            );
+                confere = true;
 
-            break;
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Beneficiário: " + beneficiario[i]
+                        + "\nDescrição: " + descricao[i]
+                        + "\nDocumento: " + documento[i]
+                        + "\nValor da conta: R$ " + valordebito[i]
+                        + "\nSaldo devedor: R$ " + saldodevedor[i]
+                        + "\nVencimento: " + vencimento[i].format(data)
+                );
+
+                break;
             }
-    }
-           if (!confere) {
-           JOptionPane.showMessageDialog(
-            null,
-            "Conta não encontrada!"
-           );
-       }
-      }      
-        
-      
+        }
+        if (!confere) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Conta não encontrada!"
+            );
+        }
     }
 
     static void excluirConta() {
@@ -194,7 +188,7 @@ public class Principal {
                     balancoDespesas();
                     break;
                 case 0:
-                   
+
                     JOptionPane.showMessageDialog(null, "Retornar ao menu de cadastro");
 
                     break;
@@ -213,7 +207,42 @@ public class Principal {
     }
 
     static void balancoDespesas() {
+        int ano;
+        int mes;
+        double despesatotaldobeneficiario;
+        double[] Despesatotal = new double[12];
+        double[] Despesatotalbeneficiario = new double[12];
+        String[] Beneficiariodespesamaior = new String[12];
+        String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS,TOTAL DAS DESPESAS,MAIOR BENEFICIÁRIO\n";
+        ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
+        String[] meses = {
+            "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
 
+        for (int i = 0; i < qtdContas; i++) {
+            if (vencimento[i].getYear() == ano) {
+                mes = vencimento[i].getMonthValue() - 1;
+                Despesatotal[mes] += valordebito[i];
+                despesatotaldobeneficiario = 0;
+                for (int j = 0; j < qtdContas; j++) {
+                    if (vencimento[j].getYear() == ano && vencimento[j].getMonthValue() == mes + 1 && beneficiario[j].equals(beneficiario[i])) {
+                        despesatotaldobeneficiario += valordebito[j];
+                    }
+                }
+                if (despesatotaldobeneficiario > Despesatotalbeneficiario[mes]) {
+                    Despesatotalbeneficiario[mes] = despesatotaldobeneficiario;
+                    Beneficiariodespesamaior[mes] = beneficiario[i];
+                }
+            }
+        }
+        for (int k =0; k<12;k++){
+           if (Beneficiariodespesamaior[k]== null){
+               relatorio += meses[k]+"R$"+ Despesatotal[k]+ "-\n";
+           }else{
+               relatorio += meses[k]+ "R$"+ Despesatotal[k]+""+Beneficiariodespesamaior[k]+"\n";
+           }
+            
+        }
+        JOptionPane.showMessageDialog(null,relatorio);
     }
 
-
+}
