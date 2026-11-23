@@ -210,47 +210,9 @@ public class Principal {
                 totalEncontradas++;
             }
         }
-        for (int i = 0; i < totalEncontradas - 1; i++) {
-            for (int j = i + 1; j < totalEncontradas; j++) {
-                if (vencimento[contasAtivas[i]].isAfter(vencimento[contasAtivas[j]])) {
-                    int temporario = contasAtivas[i];
-                    contasAtivas[i] = contasAtivas[j];
-                    contasAtivas[j] = temporario;
-                }
-                if (totalEncontradas == 0) {
-                    JOptionPane.showMessageDialog(null, "Nenhuma conta a pagar nesse período!");
-                } else {
-                    String relatorio = "xyz comercio de produtos LTDA.\n"
-                            + "contas a pagar por período\n\n"
-                            + "vencimento | valor | documento | descrição | beneficiário\n";
-                    for (int a = 0; a < totalEncontradas;
-                            a++) {
-
-                        int f = contasAtivas[a];
-                        relatorio += vencimento[f].format(data) + " | R$"
-                                + saldodevedor[f] + " | "
-                                + documento[f] + " | "
-                                + descricao[f] + " | "
-                                + beneficiario[f] + "\n";
-                    }
-                    JOptionPane.showMessageDialog(null, relatorio);
-                }
-            }
-                    
-
-                
-            
-        
-
-    
-
-    
-
-    
-
-    static void relatorioAtrasados() {
-
     }
+        static void relatorioAtrasados() {
+        }
 
     static void balancoDespesas() {
         int ano;
