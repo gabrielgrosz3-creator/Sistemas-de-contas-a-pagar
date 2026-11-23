@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
                         + "Escolha uma opção :"));
                 switch (opcao) {
                     case 1:
-                        ();
+                        menudeCadastro();
                         break;
                     case 2:
                         baixaContas();
@@ -220,7 +220,7 @@ import java.time.format.DateTimeFormatter;
 
         static void relatorioContas() {
             String textoInicio = JOptionPane.showInputDialog("Data Inicial (dd/MM/yyyy):");
-            String textoFinal = JOPtionPane.showInputDialog("Data Final (dd/MM/yyyy):");
+            String textoFinal = JOptionPane.showInputDialog("Data Final (dd/MM/yyyy):");
             LocalDate dataInicio = LocalDate.parse(textoInicio, data);
             LocalDate dataFim = LocalDate.parse(textoFinal, data);
             int[] contasAtivas = new int[qtdContas];
@@ -297,7 +297,7 @@ import java.time.format.DateTimeFormatter;
                 JOptionPane.showMessageDialog(null, relatorio);
             }
         }
-    }
+    
 
     static void balancoDespesas() {
         int ano;
