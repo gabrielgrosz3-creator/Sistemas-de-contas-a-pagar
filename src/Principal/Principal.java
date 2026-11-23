@@ -210,6 +210,16 @@ public class Principal {
                 totalEncontradas++;
             }
         }
+    
+    for (int i = 0; i < totalEncontradas - 1; i++) {
+            for (int j = i + 1; j < totalEncontradas; j++) {
+                if (vencimento[contasAtivas[i]].isAfter(vencimento[contasAtivas[j]])) {
+                    int temporario = contasAtivas[i];
+                    contasAtivas[i] = contasAtivas[j];
+                    contasAtivas[j] = temporario;
+                }
+            }
+        }
     }
         static void relatorioAtrasados() {
         }
