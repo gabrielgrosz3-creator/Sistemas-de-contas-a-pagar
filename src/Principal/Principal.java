@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
                         + "Escolha uma opção :"));
                 switch (opcao) {
                     case 1:
-                        menudeCadastro();
+                        ();
                         break;
                     case 2:
                         baixaContas();
@@ -131,8 +131,27 @@ import java.time.format.DateTimeFormatter;
         }
 
         static void alterarConta() {
+            long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
+             
+             boolean confere = false;
+
+              for (int i = 0; i < qtdContas; i++) {
+
+        if (documento[i] == doc) {
+
+            confere = true;
 
         }
+    }
+}
+
+
+
+
+    
+
+
+        
 
         static void consultarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
