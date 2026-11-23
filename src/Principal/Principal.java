@@ -210,8 +210,8 @@ public class Principal {
                 totalEncontradas++;
             }
         }
-    
-    for (int i = 0; i < totalEncontradas - 1; i++) {
+
+        for (int i = 0; i < totalEncontradas - 1; i++) {
             for (int j = i + 1; j < totalEncontradas; j++) {
                 if (vencimento[contasAtivas[i]].isAfter(vencimento[contasAtivas[j]])) {
                     int temporario = contasAtivas[i];
@@ -220,8 +220,8 @@ public class Principal {
                 }
             }
         }
-    
-    if (totalEncontradas == 0) {
+
+        if (totalEncontradas == 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma conta a pagar nesse período!");
         } else {
             String relatorio = "xyz comercio de produtos LTDA.\n"
@@ -238,8 +238,19 @@ public class Principal {
             JOptionPane.showMessageDialog(null, relatorio);
         }
     }
-        static void relatorioAtrasados() {
+
+    static void relatorioAtrasados() {
+    LocalDate hoje = LocalDate.now();
+        int[] contasvencidas = new int[qtdContas];
+        int totalEncontradas = 0;
+        for (int i = 0; i < qtdContas; i++) {
+            if (saldodevedor[i] > 0 && vencimento[i].isBefore(hoje)) {
+                contasvencidas[totalEncontradas] = i;
+                totalEncontradas++;
+            }
         }
+    }
+    
 
     static void balancoDespesas() {
         int ano;
