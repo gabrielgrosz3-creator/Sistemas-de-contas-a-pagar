@@ -249,7 +249,19 @@ public class Principal {
                 totalEncontradas++;
             }
         }
-    }
+            for (int i = 0; i < totalEncontradas - 1; i++) {
+            for (int j = i + 1; j < totalEncontradas; j++) {
+                if (vencimento[contasvencidas[i]].isAfter(vencimento[contasvencidas[j]])) {
+                    int temporario = contasvencidas[i];
+                    contasvencidas[i] = contasvencidas[j];
+                    contasvencidas[j] = temporario;
+                }
+            }
+        }
+            }
+        }
+
+    
     
 
     static void balancoDespesas() {
