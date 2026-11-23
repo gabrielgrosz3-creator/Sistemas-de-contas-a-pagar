@@ -4,9 +4,9 @@ import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-  
 
-    public class Principal {
+
+      public class Principal {
 
         static long[] documento = new long[100];
         //FIZ A TROCA DO DADO DO documento PARA long. ESTAVA DANDO ERRO NO SOFTWARE(GABRIEL)
@@ -132,29 +132,7 @@ import java.time.format.DateTimeFormatter;
 
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
-             
-             boolean confere = false;
 
-              for (int i = 0; i < qtdContas; i++) {
-
-        if (documento[i] == doc) {
-
-            confere = true;
-
-        }
-    }
-}
-
-
-
-
-    
-
-
-        
-
-        static void consultarConta() {
-            long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
             boolean confere = false;
 
             for (int i = 0; i < qtdContas; i++) {
@@ -163,155 +141,193 @@ import java.time.format.DateTimeFormatter;
 
                     confere = true;
 
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Beneficiário: " + beneficiario[i]
-                            + "\nDescrição: " + descricao[i]
-                            + "\nDocumento: " + documento[i]
-                            + "\nValor da conta: R$ " + valordebito[i]
-                            + "\nSaldo devedor: R$ " + saldodevedor[i]
-                            + "\nVencimento: " + vencimento[i].format(data)
-                    );
-
-                    break;
                 }
             }
+        
+
+
+        
+
+        static void alterarConta() {
+            long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
+
+            boolean confere = false;
+
+            for (int i = 0; i < qtdContas; i++) {
+
+                if (documento[i] == doc) {
+
+                    confere = true;
+
+                }
+            }
+
             if (!confere) {
+                JOptionPane.showMessageDialog(null, "Conta não encontrada!");
+            }
+        }
+    }
+
+    static void consultarConta() {
+        long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
+        boolean confere = false;
+
+        for (int i = 0; i < qtdContas; i++) {
+
+            if (documento[i] == doc) {
+
+                confere = true;
+
                 JOptionPane.showMessageDialog(
                         null,
-                        "Conta não encontrada!"
+                        "Beneficiário: " + beneficiario[i]
+                        + "\nDescrição: " + descricao[i]
+                        + "\nDocumento: " + documento[i]
+                        + "\nValor da conta: R$ " + valordebito[i]
+                        + "\nSaldo devedor: R$ " + saldodevedor[i]
+                        + "\nVencimento: " + vencimento[i].format(data)
                 );
+
+                break;
+            }
+        }
+        if (!confere) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Conta não encontrada!"
+            );
+        }
+    }
+
+    static void excluirConta() {
+
+    }
+
+    static void menuRelatorios() {
+        int opcao;
+        do {
+            opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
+                    + "1 - Relatório de contas a pagar\n"
+                    + "2 - Relaório de contas atrasadas\n"
+                    + "3 - Balanço de despesas\n"
+                    + "0 - Retornar\n"
+                    + "Escolha uma opção :"));
+            switch (opcao) {
+                case 1:
+                    relatorioContas();
+                    break;
+                case 2:
+                    relatorioAtrasados();
+                    break;
+                case 3:
+                    balancoDespesas();
+                    break;
+                case 0:
+
+                    JOptionPane.showMessageDialog(null, "Retornar ao menu de cadastro");
+
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida !");
+            }
+        } while (opcao != 0);
+    }
+
+    static void relatorioContas() {
+        String textoInicio = JOptionPane.showInputDialog("Data Inicial (dd/MM/yyyy):");
+        String textoFinal = JOPtionPane.showInputDialog("Data Final (dd/MM/yyyy):");
+        LocalDate dataInicio = LocalDate.parse(textoInicio, data);
+        LocalDate dataFim = LocalDate.parse(textoFinal, data);
+        int[] contasAtivas = new int[qtdContas];
+        int totalEncontradas = 0;
+        for (int i = 0; i < qtdContas; i++) {
+            if (saldodevedor[i] > 0 && !vencimento[i].isBefore(dataInicio) && !vencimento[i].isAfter(dataFim)) {
+                contasAtivas[totalEncontradas] = i;
+                totalEncontradas++;
             }
         }
 
-        static void excluirConta() {
-
-        }
-
-        static void menuRelatorios() {
-            int opcao;
-            do {
-                opcao = Integer.parseInt(JOptionPane.showInputDialog("SISTEMAS DE CONTAS A PAGAR\n\n"
-                        + "1 - Relatório de contas a pagar\n"
-                        + "2 - Relaório de contas atrasadas\n"
-                        + "3 - Balanço de despesas\n"
-                        + "0 - Retornar\n"
-                        + "Escolha uma opção :"));
-                switch (opcao) {
-                    case 1:
-                        relatorioContas();
-                        break;
-                    case 2:
-                        relatorioAtrasados();
-                        break;
-                    case 3:
-                        balancoDespesas();
-                        break;
-                    case 0:
-
-                        JOptionPane.showMessageDialog(null, "Retornar ao menu de cadastro");
-
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opção inválida !");
+        for (int i = 0; i < totalEncontradas - 1; i++) {
+            for (int j = i + 1; j < totalEncontradas; j++) {
+                if (vencimento[contasAtivas[i]].isAfter(vencimento[contasAtivas[j]])) {
+                    int temporario = contasAtivas[i];
+                    contasAtivas[i] = contasAtivas[j];
+                    contasAtivas[j] = temporario;
                 }
-            } while (opcao != 0);
-        }
-
-        static void relatorioContas() {
-            String textoInicio = JOptionPane.showInputDialog("Data Inicial (dd/MM/yyyy):");
-            String textoFinal = JOPtionPane.showInputDialog("Data Final (dd/MM/yyyy):");
-            LocalDate dataInicio = LocalDate.parse(textoInicio, data);
-            LocalDate dataFim = LocalDate.parse(textoFinal, data);
-            int[] contasAtivas = new int[qtdContas];
-            int totalEncontradas = 0;
-            for (int i = 0; i < qtdContas; i++) {
-                if (saldodevedor[i] > 0 && !vencimento[i].isBefore(dataInicio) && !vencimento[i].isAfter(dataFim)) {
-                    contasAtivas[totalEncontradas] = i;
-                    totalEncontradas++;
-                }
-            }
-
-            for (int i = 0; i < totalEncontradas - 1; i++) {
-                for (int j = i + 1; j < totalEncontradas; j++) {
-                    if (vencimento[contasAtivas[i]].isAfter(vencimento[contasAtivas[j]])) {
-                        int temporario = contasAtivas[i];
-                        contasAtivas[i] = contasAtivas[j];
-                        contasAtivas[j] = temporario;
-                    }
-                }
-            }
-
-            if (totalEncontradas == 0) {
-                JOptionPane.showMessageDialog(null, "Nenhuma conta a pagar nesse período!");
-            } else {
-                String relatorio = "xyz comercio de produtos LTDA.\n"
-                        + "contas a pagar por período\n\n"
-                        + "vencimento | valor | documento | descrição | beneficiário\n";
-                for (int a = 0; a < totalEncontradas; a++) {
-                    int f = contasAtivas[a];
-                    relatorio += vencimento[f].format(data) + " | R$"
-                            + saldodevedor[f] + " | "
-                            + documento[f] + " | "
-                            + descricao[f] + " | "
-                            + beneficiario[f] + "\n";
-                }
-                JOptionPane.showMessageDialog(null, relatorio);
             }
         }
 
-        static void relatorioAtrasados() {
-            LocalDate hoje = LocalDate.now();
-            int[] contasvencidas = new int[qtdContas];
-            int totalEncontradas = 0;
-            for (int i = 0; i < qtdContas; i++) {
-                if (saldodevedor[i] > 0 && vencimento[i].isBefore(hoje)) {
-                    contasvencidas[totalEncontradas] = i;
-                    totalEncontradas++;
-                }
+        if (totalEncontradas == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta a pagar nesse período!");
+        } else {
+            String relatorio = "xyz comercio de produtos LTDA.\n"
+                    + "contas a pagar por período\n\n"
+                    + "vencimento | valor | documento | descrição | beneficiário\n";
+            for (int a = 0; a < totalEncontradas; a++) {
+                int f = contasAtivas[a];
+                relatorio += vencimento[f].format(data) + " | R$"
+                        + saldodevedor[f] + " | "
+                        + documento[f] + " | "
+                        + descricao[f] + " | "
+                        + beneficiario[f] + "\n";
             }
-            for (int i = 0; i < totalEncontradas - 1; i++) {
-                for (int j = i + 1; j < totalEncontradas; j++) {
-                    if (vencimento[contasvencidas[i]].isAfter(vencimento[contasvencidas[j]])) {
-                        int temporario = contasvencidas[i];
-                        contasvencidas[i] = contasvencidas[j];
-                        contasvencidas[j] = temporario;
-                    }
-                }
-            }
-            if (totalEncontradas == 0) {
-                JOptionPane.showMessageDialog(null, "Nenhuma conta atrasada!");
-            } else {
-                String relatorio = "xyz comercio de produtos LTDA.\n"
-                        + "contas a pagar atrasadas\n\n"
-                        + "vencimento | valor | documento | descrição | beneficiário\n";
+            JOptionPane.showMessageDialog(null, relatorio);
+        }
+    }
 
-                for (int m = 0; m < totalEncontradas; m++) {
-                    int f = contasvencidas[m];
-                    relatorio += vencimento[f].format(data) + " | R$"
-                            + saldodevedor[f] + " | "
-                            + documento[f] + " | "
-                            + descricao[f] + " | "
-                            + beneficiario[f] + "\n";
-                }
-                JOptionPane.showMessageDialog(null, relatorio);
+    static void relatorioAtrasados() {
+        LocalDate hoje = LocalDate.now();
+        int[] contasvencidas = new int[qtdContas];
+        int totalEncontradas = 0;
+        for (int i = 0; i < qtdContas; i++) {
+            if (saldodevedor[i] > 0 && vencimento[i].isBefore(hoje)) {
+                contasvencidas[totalEncontradas] = i;
+                totalEncontradas++;
             }
         }
+        for (int i = 0; i < totalEncontradas - 1; i++) {
+            for (int j = i + 1; j < totalEncontradas; j++) {
+                if (vencimento[contasvencidas[i]].isAfter(vencimento[contasvencidas[j]])) {
+                    int temporario = contasvencidas[i];
+                    contasvencidas[i] = contasvencidas[j];
+                    contasvencidas[j] = temporario;
+                }
+            }
+        }
+        if (totalEncontradas == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta atrasada!");
+        } else {
+            String relatorio = "xyz comercio de produtos LTDA.\n"
+                    + "contas a pagar atrasadas\n\n"
+                    + "vencimento | valor | documento | descrição | beneficiário\n";
+
+            for (int m = 0; m < totalEncontradas; m++) {
+                int f = contasvencidas[m];
+                relatorio += vencimento[f].format(data) + " | R$"
+                        + saldodevedor[f] + " | "
+                        + documento[f] + " | "
+                        + descricao[f] + " | "
+                        + beneficiario[f] + "\n";
+            }
+            JOptionPane.showMessageDialog(null, relatorio);
+        }
+    }
     }
 
     static void balancoDespesas() {
         int ano;
         int mes;
-        double despesatotaldobeneficiario;
-        double[] Despesatotal = new double[12];
-        double[] Despesatotalbeneficiario = new double[12];
-        String[] Beneficiariodespesamaior = new String[12];
-        String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS, TOTAL DAS DESPESAS, BENEFICIÁRIO\n";
-        ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
+    double despesatotaldobeneficiario;
+    double[] Despesatotal = new double[12];
+    double[] Despesatotalbeneficiario = new double[12];
+    String[] Beneficiariodespesamaior = new String[12];
+    String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS, TOTAL DAS DESPESAS, BENEFICIÁRIO\n";
+    ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
         String[] meses = {
-            "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
+        "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
 
-        for (int i = 0; i < qtdContas; i++) {
+
+for (int i = 0; i < qtdContas; i++) {
             if (vencimento[i].getYear() == ano) {
                 mes = vencimento[i].getMonthValue() - 1;
                 Despesatotal[mes] += valordebito[i];
