@@ -254,6 +254,8 @@ import java.time.format.DateTimeFormatter;
 
         
 
+        
+
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
 
@@ -273,7 +275,19 @@ import java.time.format.DateTimeFormatter;
                     String dataStr = JOptionPane.showInputDialog("Digite a nova data de vencimento (dd/MM/yyyy)");
 
                     LocalDate novoVencimento = LocalDate.parse(dataStr, data);
+                    
+                    double valorPago = valordebito[i] - saldodevedor[i];
 
+                    double novoSaldo = novoValor - valorPago;
+
+                    if (novoSaldo < 0) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "O novo valor não pode ser menor que o valor já pago!");
+
+                        break;
+                    }
+                    
                     int confirma = JOptionPane.showConfirmDialog(
                             null, "Confirma as alterações?",
                             "Confirmação", JOptionPane.YES_NO_OPTION);
