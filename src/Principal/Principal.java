@@ -151,18 +151,6 @@ import java.time.format.DateTimeFormatter;
 
                 }
             }
-        
-
-
-        
-
-        
-
-        
-
-        
-
-        
 
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
@@ -174,7 +162,18 @@ import java.time.format.DateTimeFormatter;
                 if (documento[i] == doc) {
 
                     confere = true;
+                    beneficiario[i] = JOptionPane.showInputDialog("Digite o nome do correntista");
+                    descricao[i] = JOptionPane.showInputDialog("Digite a descição do correntista"); 
+                    valordebito[i] = Double.parseDouble(JOptionPane.showInputDialog("Digite o novo valor da conta:"));
+                    saldodevedor[i] = valordebito[i];
+                    String dataStr = JOptionPane.showInputDialog(
+                            "Digite a nova data de vencimento (dd/MM/yyyy)");
+                    vencimento[i] = LocalDate.parse(dataStr, data);
+                    
+                    JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
+                    break;
 
+            
                 }
             }
 
