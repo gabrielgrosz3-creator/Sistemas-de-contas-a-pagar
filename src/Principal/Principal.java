@@ -148,6 +148,10 @@ import java.time.format.DateTimeFormatter;
 
         
 
+        
+
+        
+
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
 
@@ -165,6 +169,36 @@ import java.time.format.DateTimeFormatter;
             if (!confere) {
                 JOptionPane.showMessageDialog(null, "Conta não encontrada!");
             }
+        }
+    }
+
+    static void alterarConta() {
+        long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
+
+        boolean confere = false;
+
+        for (int i = 0; i < qtdContas; i++) {
+
+            if (documento[i] == doc) {
+
+                confere = true;
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Beneficiário: " + beneficiario[i]
+                        + "\nDescrição: " + descricao[i]
+                        + "\nDocumento: " + documento[i]
+                        + "\nValor da conta: R$ " + valordebito[i]
+                        + "\nSaldo devedor: R$ " + saldodevedor[i]
+                        + "\nVencimento: " + vencimento[i].format(data)
+                );
+                descricao[i] = JOptionPane.showInputDialog("Digite a nova descrição");
+                break;
+            }
+        }
+
+        if (!confere) {
+            JOptionPane.showMessageDialog(null, "Conta não encontrada!");
         }
     }
 
