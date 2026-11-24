@@ -190,7 +190,27 @@ import java.time.format.DateTimeFormatter;
                 break;
             }
 
-            double novoValor = Double.parseDouble(valorStr);
+            double novoValor;
+
+            try {
+
+                novoValor = Double.parseDouble(valorStr.trim().replace(",", "."));
+
+                if (novoValor <= 0 || !Double.isFinite(novoValor)) {
+
+                    JOptionPane.showMessageDialog(null,
+                            "O valor da conta deve ser maior que zero!");
+
+                    break;
+                }
+
+            } catch (NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(null,
+                        "Digite um valor numérico válido!");
+
+                break;
+            }
 
             String dataStr = JOptionPane.showInputDialog(
                     "Digite a nova data de vencimento (dd/MM/yyyy)");
@@ -206,6 +226,8 @@ import java.time.format.DateTimeFormatter;
             }
 
             LocalDate novoVencimento = LocalDate.parse(dataStr, data);        
+
+        
 
         
 
