@@ -139,7 +139,34 @@ import java.time.format.DateTimeFormatter;
         }
 
         static void alterarConta() {
-            long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
+            String documentoStr = JOptionPane.showInputDialog("Digite o documento");
+
+            if (documentoStr == null) {
+                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+                return;
+            }
+
+            if (documentoStr.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe o documento!");
+                return;
+            }
+
+            long doc;
+
+            try {
+
+                doc = Long.parseLong(documentoStr.trim());
+
+                if (doc <= 0) {
+                    JOptionPane.showMessageDialog(null, "Documento inválido!");
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(null, "Digite um documento numérico válido!");
+                return;
+            }
 
             boolean confere = false;
 
@@ -256,6 +283,8 @@ import java.time.format.DateTimeFormatter;
 
         
 
+        
+
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
 
@@ -275,7 +304,7 @@ import java.time.format.DateTimeFormatter;
                     String dataStr = JOptionPane.showInputDialog("Digite a nova data de vencimento (dd/MM/yyyy)");
 
                     LocalDate novoVencimento = LocalDate.parse(dataStr, data);
-                    
+
                     double valorPago = valordebito[i] - saldodevedor[i];
 
                     double novoSaldo = novoValor - valorPago;
@@ -287,7 +316,7 @@ import java.time.format.DateTimeFormatter;
 
                         break;
                     }
-                    
+
                     int confirma = JOptionPane.showConfirmDialog(
                             null, "Confirma as alterações?",
                             "Confirmação", JOptionPane.YES_NO_OPTION);
