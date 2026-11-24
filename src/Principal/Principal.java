@@ -225,7 +225,24 @@ import java.time.format.DateTimeFormatter;
                 break;
             }
 
-            LocalDate novoVencimento = LocalDate.parse(dataStr, data);        
+            LocalDate novoVencimento;
+
+            try {
+
+                novoVencimento = LocalDate.parse(
+                        dataStr.trim(),
+                        DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                                .withResolverStyle(java.time.format.ResolverStyle.STRICT));
+
+            } catch (java.time.format.DateTimeParseException e) {
+
+                JOptionPane.showMessageDialog(null,
+                        "Digite uma data válida no formato dd/MM/yyyy!");
+
+                break;
+            }       
+
+        
 
         
 
