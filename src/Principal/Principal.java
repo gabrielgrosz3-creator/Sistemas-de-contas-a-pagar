@@ -1,5 +1,13 @@
 package Principal;
 
+import static Principal.Principal.Principal.beneficiario;
+import static Principal.Principal.Principal.data;
+import static Principal.Principal.Principal.descricao;
+import static Principal.Principal.Principal.documento;
+import static Principal.Principal.Principal.qtdContas;
+import static Principal.Principal.Principal.saldodevedor;
+import static Principal.Principal.Principal.valordebito;
+import static Principal.Principal.Principal.vencimento;
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -152,6 +160,10 @@ import java.time.format.DateTimeFormatter;
 
         
 
+        
+
+        
+
         static void alterarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
 
@@ -169,36 +181,6 @@ import java.time.format.DateTimeFormatter;
             if (!confere) {
                 JOptionPane.showMessageDialog(null, "Conta não encontrada!");
             }
-        }
-    }
-
-    static void alterarConta() {
-        long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
-
-        boolean confere = false;
-
-        for (int i = 0; i < qtdContas; i++) {
-
-            if (documento[i] == doc) {
-
-                confere = true;
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Beneficiário: " + beneficiario[i]
-                        + "\nDescrição: " + descricao[i]
-                        + "\nDocumento: " + documento[i]
-                        + "\nValor da conta: R$ " + valordebito[i]
-                        + "\nSaldo devedor: R$ " + saldodevedor[i]
-                        + "\nVencimento: " + vencimento[i].format(data)
-                );
-                descricao[i] = JOptionPane.showInputDialog("Digite a nova descrição");
-                break;
-            }
-        }
-
-        if (!confere) {
-            JOptionPane.showMessageDialog(null, "Conta não encontrada!");
         }
     }
 
