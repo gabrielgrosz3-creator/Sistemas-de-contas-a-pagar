@@ -489,25 +489,20 @@ import java.time.format.DateTimeFormatter;
             JOptionPane.showMessageDialog(null, relatorio);
         }
     }
-    }
-
-    
-
 
     static void balancoDespesas() {
         int ano;
         int mes;
-    double despesatotaldobeneficiario;
-    double[] Despesatotal = new double[12];
-    double[] Despesatotalbeneficiario = new double[12];
-    String[] Beneficiariodespesamaior = new String[12];
-    String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS, TOTAL DAS DESPESAS, BENEFICIÁRIO\n";
-    ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
+        double despesatotaldobeneficiario;
+        double[] Despesatotal = new double[12];
+        double[] Despesatotalbeneficiario = new double[12];
+        String[] Beneficiariodespesamaior = new String[12];
+        String relatorio = "BALANÇO DAS DESPESAS\n\n" + "MÊS, TOTAL DAS DESPESAS, BENEFICIÁRIO\n";
+        ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano :"));
         String[] meses = {
-        "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
+            "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO",};
 
-
-for (int i = 0; i < qtdContas; i++) {
+        for (int i = 0; i < qtdContas; i++) {
             if (vencimento[i].getYear() == ano) {
                 mes = vencimento[i].getMonthValue() - 1;
                 Despesatotal[mes] += valordebito[i];
@@ -533,4 +528,3 @@ for (int i = 0; i < qtdContas; i++) {
         }
         JOptionPane.showMessageDialog(null, relatorio);
     }
-}
