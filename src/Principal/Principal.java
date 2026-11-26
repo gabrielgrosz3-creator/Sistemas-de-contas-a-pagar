@@ -138,215 +138,180 @@ import java.time.format.DateTimeFormatter;
             qtdContas++;
         }
 
-        static void alterarConta() {
-            String documentoStr = JOptionPane.showInputDialog("Digite o documento");
 
-            if (documentoStr == null) {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+    static void alterarConta() {
+        String documentoStr = JOptionPane.showInputDialog("Digite o documento");
+
+        if (documentoStr == null) {
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+            return;
+        }
+
+        if (documentoStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o documento!");
+            return;
+        }
+
+        long doc;
+
+        try {
+
+            doc = Long.parseLong(documentoStr.trim());
+
+            if (doc <= 0) {
+                JOptionPane.showMessageDialog(null, "Documento inválido!");
                 return;
             }
 
-            if (documentoStr.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o documento!");
-                return;
-            }
+        } catch (NumberFormatException e) {
 
-            long doc;
+            JOptionPane.showMessageDialog(null, "Digite um documento numérico válido!");
+            return;
+        }
 
-            try {
+        boolean confere = false;
+        int posicao = -1;
 
-                doc = Long.parseLong(documentoStr.trim());
+        for (int i = 0; i < qtdContas; i++) {
 
-                if (doc <= 0) {
-                    JOptionPane.showMessageDialog(null, "Documento inválido!");
-                    return;
-                }
+            if (documento[i] == doc) {
 
-            } catch (NumberFormatException e) {
-
-                JOptionPane.showMessageDialog(null, "Digite um documento numérico válido!");
-                return;
-            }
-
-            boolean confere = false;
-
-            for (int i = 0; i < qtdContas; i++) {
-
-                if (documento[i] == doc) {
-
-                    confere = true;
-
-                }
-            }
-            String novoBeneficiario = JOptionPane.showInputDialog(
-                    "Digite o nome do correntista");
-
-            if (novoBeneficiario == null) {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+                confere = true;
+                posicao = i;
                 break;
-            }
 
-            if (novoBeneficiario.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o beneficiário!");
-                break;
-            }
-
-            String novaDescricao = JOptionPane.showInputDialog(
-                    "Digite a descrição da conta");
-
-            if (novaDescricao == null) {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
-                break;
-            }
-
-            if (novaDescricao.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe a descrição!");
-                break;
-            }
-
-            String valorStr = JOptionPane.showInputDialog(
-                    "Digite o novo valor da conta:");
-
-            if (valorStr == null) {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
-                break;
-            }
-
-            if (valorStr.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o valor da conta!");
-                break;
-            }
-
-            double novoValor;
-
-            try {
-
-                novoValor = Double.parseDouble(valorStr.trim().replace(",", "."));
-
-                if (novoValor <= 0 || !Double.isFinite(novoValor)) {
-
-                    JOptionPane.showMessageDialog(null,
-                            "O valor da conta deve ser maior que zero!");
-
-                    break;
-                }
-
-            } catch (NumberFormatException e) {
-
-                JOptionPane.showMessageDialog(null,
-                        "Digite um valor numérico válido!");
-
-                break;
-            }
-
-            String dataStr = JOptionPane.showInputDialog(
-                    "Digite a nova data de vencimento (dd/MM/yyyy)");
-
-            if (dataStr == null) {
-                JOptionPane.showMessageDialog(null, "Alteração cancelada!");
-                break;
-            }
-
-            if (dataStr.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o vencimento!");
-                break;
-            }
-
-            LocalDate novoVencimento;
-
-            try {
-
-                novoVencimento = LocalDate.parse(
-                        dataStr.trim(),
-                        DateTimeFormatter.ofPattern("dd/MM/uuuu")
-                                .withResolverStyle(java.time.format.ResolverStyle.STRICT));
-
-            } catch (java.time.format.DateTimeParseException e) {
-
-                JOptionPane.showMessageDialog(null,
-                        "Digite uma data válida no formato dd/MM/yyyy!");
-
-                break;
-            }       
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        static void alterarConta() {
-            long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
-
-            boolean confere = false;
-
-            for (int i = 0; i < qtdContas; i++) {
-
-                if (documento[i] == doc) {
-
-                    confere = true;
-                    String novoBeneficiario = JOptionPane.showInputDialog("Digite o nome do correntista");
-
-                    String novaDescricao = JOptionPane.showInputDialog("Digite a descrição da conta");
-
-                    double novoValor = Double.parseDouble(JOptionPane.showInputDialog("Digite o novo valor da conta:"));
-
-                    String dataStr = JOptionPane.showInputDialog("Digite a nova data de vencimento (dd/MM/yyyy)");
-
-                    LocalDate novoVencimento = LocalDate.parse(dataStr, data);
-
-                    double valorPago = valordebito[i] - saldodevedor[i];
-
-                    double novoSaldo = novoValor - valorPago;
-
-                    if (novoSaldo < 0) {
-
-                        JOptionPane.showMessageDialog(null,
-                                "O novo valor não pode ser menor que o valor já pago!");
-
-                        break;
-                    }
-
-                    int confirma = JOptionPane.showConfirmDialog(
-                            null, "Confirma as alterações?",
-                            "Confirmação", JOptionPane.YES_NO_OPTION);
-
-                    if (confirma == JOptionPane.YES_OPTION) {
-
-                        beneficiario[i] = novoBeneficiario;
-                        descricao[i] = novaDescricao;
-                        valordebito[i] = novoValor;
-                        saldodevedor[i] = novoValor;
-                        vencimento[i] = novoVencimento;
-
-                        JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
-
-                    } else {
-
-                        JOptionPane.showMessageDialog(null, "Alteração cancelada!");
-
-                    }
-
-                    break;
-
-                }
-            }
-
-            if (!confere) {
-                JOptionPane.showMessageDialog(null, "Conta não encontrada!");
             }
         }
+
+        if (!confere) {
+            JOptionPane.showMessageDialog(null, "Conta não encontrada!");
+            return;
+        }
+
+        String novoBeneficiario = JOptionPane.showInputDialog(
+                "Digite o nome do correntista");
+
+        if (novoBeneficiario == null) {
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+            return;
+        }
+
+        if (novoBeneficiario.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o beneficiário!");
+            return;
+        }
+
+        String novaDescricao = JOptionPane.showInputDialog(
+                "Digite a descrição da conta");
+
+        if (novaDescricao == null) {
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+            return;
+        }
+
+        if (novaDescricao.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe a descrição!");
+            return;
+        }
+
+        String valorStr = JOptionPane.showInputDialog(
+                "Digite o novo valor da conta:");
+
+        if (valorStr == null) {
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+            return;
+        }
+
+        if (valorStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o valor da conta!");
+            return;
+        }
+
+        double novoValor;
+
+        try {
+
+            novoValor = Double.parseDouble(valorStr.trim().replace(",", "."));
+
+            if (novoValor <= 0 || !Double.isFinite(novoValor)) {
+
+                JOptionPane.showMessageDialog(null,
+                        "O valor da conta deve ser maior que zero!");
+
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null,
+                    "Digite um valor numérico válido!");
+
+            return;
+        }
+
+        String dataStr = JOptionPane.showInputDialog(
+                "Digite a nova data de vencimento (dd/MM/yyyy)");
+
+        if (dataStr == null) {
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+            return;
+        }
+
+        if (dataStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o vencimento!");
+            return;
+        }
+
+        LocalDate novoVencimento;
+
+        try {
+
+            novoVencimento = LocalDate.parse(
+                    dataStr.trim(),
+                    DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                            .withResolverStyle(java.time.format.ResolverStyle.STRICT));
+
+        } catch (java.time.format.DateTimeParseException e) {
+
+            JOptionPane.showMessageDialog(null,
+                    "Digite uma data válida no formato dd/MM/yyyy!");
+
+            return;
+        }
+
+        double valorPago = valordebito[posicao] - saldodevedor[posicao];
+
+        double novoSaldo = novoValor - valorPago;
+
+        if (novoSaldo < 0) {
+
+            JOptionPane.showMessageDialog(null,
+                    "O novo valor não pode ser menor que o valor já pago!");
+
+            return;
+        }
+
+        int confirma = JOptionPane.showConfirmDialog(
+                null, "Confirma as alterações?",
+                "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == JOptionPane.YES_OPTION) {
+
+            beneficiario[posicao] = novoBeneficiario;
+            descricao[posicao] = novaDescricao;
+            valordebito[posicao] = novoValor;
+            saldodevedor[posicao] = novoSaldo;
+            vencimento[posicao] = novoVencimento;
+
+            JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Alteração cancelada!");
+
+        }
     }
+    
 
     static void consultarConta() {
         long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
@@ -415,7 +380,7 @@ import java.time.format.DateTimeFormatter;
 
     static void relatorioContas() {
         String textoInicio = JOptionPane.showInputDialog("Data Inicial (dd/MM/yyyy):");
-        String textoFinal = JOPtionPane.showInputDialog("Data Final (dd/MM/yyyy):");
+        String textoFinal = JOptionPane.showInputDialog("Data Final (dd/MM/yyyy):");
         LocalDate dataInicio = LocalDate.parse(textoInicio, data);
         LocalDate dataFim = LocalDate.parse(textoFinal, data);
         int[] contasAtivas = new int[qtdContas];
@@ -434,8 +399,7 @@ import java.time.format.DateTimeFormatter;
                     contasAtivas[i] = contasAtivas[j];
                     contasAtivas[j] = temporario;
                 }
-                 << << << < HEAD
-                        == == == =
+
             }
             while (opcao != 0);
         }
@@ -479,7 +443,7 @@ import java.time.format.DateTimeFormatter;
                             + beneficiario[f] + "\n";
                 }
                 JOptionPane.showMessageDialog(null, relatorio);
->>>>>>> be31e7b9d6761c85d648f1a0771a73eef9b59b2e
+
             }
         }
 
@@ -511,7 +475,7 @@ import java.time.format.DateTimeFormatter;
                 totalEncontradas++;
             }
         }
-<<<<<<< HEAD
+
         for (int i = 0; i < totalEncontradas - 1; i++) {
             for (int j = i + 1; j < totalEncontradas; j++) {
                 if (vencimento[contasvencidas[i]].isAfter(vencimento[contasvencidas[j]])) {
@@ -540,9 +504,9 @@ import java.time.format.DateTimeFormatter;
         }
     }
     }
-=======
+
     
->>>>>>> be31e7b9d6761c85d648f1a0771a73eef9b59b2e
+
 
     static void balancoDespesas() {
         int ano;
