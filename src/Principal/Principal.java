@@ -381,8 +381,8 @@ public class Principal {
                 saldodevedor[i] = saldodevedor[i + 1];
                 vencimento[i] = vencimento[i + 1];
             }
-            qtdContas --;
-            
+            qtdContas--;
+
             documento[qtdContas] = 0;
             descricao[qtdContas] = null;
             beneficiario[qtdContas] = null;
@@ -391,9 +391,11 @@ public class Principal {
             vencimento[qtdContas] = null;
 
             JOptionPane.showMessageDialog(null, "Conta excluída com sucesso");
-            
-        } 
-        
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Exclusão cancelada!");
+        }
     }
 
     static void menuRelatorios() {
