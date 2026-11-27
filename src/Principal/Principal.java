@@ -333,7 +333,24 @@ public class Principal {
     }
 
     static void excluirConta() {
+        String documentoStr = JOptionPane.showInputDialog(null, "Insira o número do documento");
+        if (documentoStr == null) {
+            JOptionPane.showMessageDialog(null, "Exclusão cancelada");
+            return;
+        }
+        if (documentoStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Insira um número válido");
+            return;
+        }
 
+        long doc;
+
+        try {
+            doc = Long.parseLong(documentoStr.trim());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Digite um número de documento válido");
+        }
     }
 
     static void menuRelatorios() {
