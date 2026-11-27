@@ -140,19 +140,35 @@ import java.time.format.DateTimeFormatter;
         if (documento[i] == doc) {
 
             confere = true;
+            
+                 
+           beneficiario[i] = JOptionPane.showInputDialog(
+        "Novo beneficiário:", beneficiario[i]);
 
+         descricao[i] = JOptionPane.showInputDialog(
+        "Nova descrição:", descricao[i]);
+
+          valordebito[i] = Double.parseDouble(
+        JOptionPane.showInputDialog(
+            "Novo valor da conta:", valordebito[i]));
+
+            saldodevedor[i] = valordebito[i];
+
+         String dataStr = JOptionPane.showInputDialog(
+           "Nova data de vencimento (dd/MM/yyyy):",
+            vencimento[i].format(data));
+
+       vencimento[i] = LocalDate.parse(dataStr, data);
+
+          JOptionPane.showMessageDialog(null,
+            "Conta alterada com sucesso!");
+
+          break;
         }
     }
+            
 }
-
-
-
-
-    
-
-
         
-
         static void consultarConta() {
             long doc = Long.parseLong(JOptionPane.showInputDialog("Digite o documento"));
             boolean confere = false;
@@ -185,7 +201,51 @@ import java.time.format.DateTimeFormatter;
         }
 
         static void excluirConta() {
+            long doc = Long.parseLong(
+        JOptionPane.showInputDialog(
+            "Digite o documento"));
 
+        int posicao = -1;
+
+         for (int i = 0; i < qtdContas; i++) {
+        if (documento[i] == doc) {
+            posicao = i;
+            break;
+        }
+       }
+
+        if (posicao == -1) {
+        JOptionPane.showMessageDialog(
+            null,
+            "Conta não encontrada!");
+        return;
+          }
+
+         int confirma = JOptionPane.showConfirmDialog(
+            null,
+            "Deseja realmente excluir a conta?",
+            "Confirmação",
+            JOptionPane.YES_NO_OPTION);
+
+          if (confirma == JOptionPane.YES_OPTION) {
+
+           for (int i = posicao; i < qtdContas - 1; i++) {
+            documento[i] = documento[i + 1];
+            descricao[i] = descricao[i + 1];
+            beneficiario[i] = beneficiario[i + 1];
+            valordebito[i] = valordebito[i + 1];
+            saldodevedor[i] = saldodevedor[i + 1];
+            vencimento[i] = vencimento[i + 1];
+             }
+
+            qtdContas--;
+
+              JOptionPane.showMessageDialog(
+            null,
+            "Conta excluída com sucesso!");
+                }
+            }
+              
         }
 
         static void menuRelatorios() {
