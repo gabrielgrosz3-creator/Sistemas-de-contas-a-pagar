@@ -350,7 +350,50 @@ public class Principal {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Digite um número de documento válido");
+            return;
         }
+
+        int posicao = -1;
+        for (int i = 0; i < qtdContas; i++) {
+            if (documento[i] == doc) {
+                posicao = i;
+                break;
+            }
+        }
+        if (posicao == -1) {
+            JOptionPane.showMessageDialog(null, "Documento não encontrado");
+            return;
+        }
+        int confirma = JOptionPane.showConfirmDialog(null, "Beneficiário: " + beneficiario[posicao]
+                + "\nDescrição: " + descricao[posicao]
+                + "\nDocumento: " + documento[posicao]
+                + "\nValor da conta: R$ " + valordebito[posicao]
+                + "\nSaldo devedor: R$ " + saldodevedor[posicao]
+                + "\nVencimento: " + vencimento[posicao].format(data)
+                + "\n\nConfirma a exclusão desta conta?",
+                "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            for (int i = posicao; i < qtdContas - 1; i++) {
+                documento[i] = documento[i + 1];
+                descricao[i] = descricao[i + 1];
+                beneficiario[i] = beneficiario[i + 1];
+                valordebito[i] = valordebito[i + 1];
+                saldodevedor[i] = saldodevedor[i + 1];
+                vencimento[i] = vencimento[i + 1];
+            }
+            qtdContas --;
+            
+            documento[qtdContas] = 0;
+            descricao[qtdContas] = null;
+            beneficiario[qtdContas] = null;
+            valordebito[qtdContas] = 0;
+            saldodevedor[qtdContas] = 0;
+            vencimento[qtdContas] = null;
+
+            JOptionPane.showMessageDialog(null, "Conta excluída com sucesso");
+            
+        } 
+        
     }
 
     static void menuRelatorios() {
